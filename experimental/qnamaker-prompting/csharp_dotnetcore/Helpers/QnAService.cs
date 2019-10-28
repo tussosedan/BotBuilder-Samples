@@ -24,6 +24,10 @@ namespace QnAPrompting.Helpers
 
         public async Task<QnAResult[]> QueryQnAServiceAsync(string query, QnABotState qnAcontext)
         {
+            if (qnAcontext == null) {
+                qnAcontext = new QnABotState();
+            }
+            
             var requestUrl = $"{_endpoint.Host}/knowledgebases/{_endpoint.KnowledgeBaseId}/generateanswer";
             var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
             var jsonRequest = JsonConvert.SerializeObject(
